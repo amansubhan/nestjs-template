@@ -21,6 +21,7 @@ jobs:
           - name: build and push docker image to registry
             uses: docker/build-push-action@v5
             with:
-              context: DockerFile
+              context: .
+              file: ./Dockerfile
               push: true
               tags: ${{secrets.DOCKERHUB_USERNAME}}/nestjs-template:latest
