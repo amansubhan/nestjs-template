@@ -50,6 +50,9 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - internal
+      - nginx-pm_default
 
 networks:
   internal:
+  nginx-pm_default:
+    external: true
