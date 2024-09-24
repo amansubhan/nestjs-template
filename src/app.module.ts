@@ -4,13 +4,14 @@ import { AppService } from './app.service';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { redisStore } from 'cache-manager-redis-yet';
+import * as process from 'node:process';
 
 @Module({
   imports: [
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
       socket: {
-        host: 'nestjs-api-cache',
+        host: process.env.REDIS_HOST ?? 'localhost',
         port: 6379,
         connectTimeout: 10000,
       },

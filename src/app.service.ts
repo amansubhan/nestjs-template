@@ -7,11 +7,13 @@ import { Cache } from 'cache-manager';
 export class AppService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
-  async getHello(): Promise<{ message: string; cache: any }> {
-    await this.cacheManager.set('test', Date.now());
+  async getHello(): Promise<{ message: string; cacheViewCount: number }> {
+    const counter = await this.cacheManager.get<number>('viewCount');
+    const viewCount = counter ? counter + 1 : 1;
+    await this.cacheManager.set('viewCount', viewCount);
     return {
       message: 'Hello World! from host: ' + os.hostname(),
-      cache: await this.cacheManager.get('test'),
+      cacheViewCount: viewCount,
     };
   }
 }

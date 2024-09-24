@@ -13,12 +13,13 @@ services:
       resources:
         limits:
           cpus: '1'
-          memory: 256M
+          memory: 96M
     pull_policy: build
     networks:
       - internal
     environment:
       - NODE_ENV=production
+      - REDIS_HOST=cache
     depends_on:
       - cache
   cache:
@@ -29,7 +30,7 @@ services:
       resources:
         limits:
           cpus: '2'
-          memory: 256M
+          memory: 64M
     networks:
       - internal
   proxy:
@@ -42,7 +43,7 @@ services:
       resources:
         limits:
           cpus: '2'
-          memory: 128M
+          memory: 32M
     ports:
       - "80"
     volumes:
