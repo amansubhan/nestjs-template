@@ -9,8 +9,10 @@ export class AppService {
 
   async getHello(): Promise<{ message: string; cacheViewCount: number }> {
     const counter = await this.cacheManager.get<number>('viewCount');
-    const viewCount = counter ? counter + 1 : 1;
+    const viewCount = (counter ?? 0) + 1;
+
     await this.cacheManager.set('viewCount', viewCount);
+
     return {
       message: 'Hello World! from host: ' + os.hostname(),
       cacheViewCount: viewCount,

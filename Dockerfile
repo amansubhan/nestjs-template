@@ -1,5 +1,5 @@
 FROM node:lts-alpine AS build
-LABEL authors="Aman Subhan <>"
+LABEL authors="Aman Subhan <amansubhan929@gmail.com>"
 RUN npm install -g pnpm
 WORKDIR /usr/src/app
 COPY package.json ./
