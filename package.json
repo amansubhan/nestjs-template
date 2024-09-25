@@ -1,6 +1,6 @@
 {
   "name": "nestjs-template",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "NestJS Template for high performance api services",
   "author": "Aman Subhan <amansubhan929@gmail.com>",
   "private": true,
