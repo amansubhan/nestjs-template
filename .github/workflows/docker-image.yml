@@ -11,19 +11,25 @@ jobs:
         steps:
           - name: Set up QEMU
             uses: docker/setup-qemu-action@v3
-            
+
           - name: Set up Docker Buildx
             uses: docker/setup-buildx-action@v3
-            
+
           - name: check repository
             uses: actions/checkout@v4
-    
+
           - name: login to docker registry
             uses: docker/login-action@v3
             with:
               username: ${{secrets.DOCKERHUB_USERNAME}}
               password: ${{secrets.DOCKERHUB_PASSWORD}}
-    
+
+          - name: Extract metadata (tags, labels) for Docker
+            id: meta
+            uses: docker/metadata-action@v5
+            with:
+              images: ${{secrets.DOCKERHUB_USERNAME}}/nestjs-template
+
           - name: build and push docker image to registry
             uses: docker/build-push-action@v6
             with:
@@ -31,4 +37,5 @@ jobs:
               file: ./Dockerfile
               push: true
               platforms: linux/amd64,linux/arm64
-              tags: ${{secrets.DOCKERHUB_USERNAME}}/nestjs-template:latest
+              tags: ${{ steps.meta.outputs.tags }}
+              labels: ${{ steps.meta.outputs.labels }}
